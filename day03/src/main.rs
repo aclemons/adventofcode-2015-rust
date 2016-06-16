@@ -56,6 +56,11 @@ fn main() {
 
     let count = number_of_houses(input, use_robo_santa);
 
-    println!("Only {} houses received presents", count);
+    println!("Only {} houses received presents{}",
+             count,
+             if use_robo_santa {
+                 " with robo santa"
+             } else {
+                 ""
+             });
 }
-
