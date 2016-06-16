@@ -6,7 +6,8 @@ fn calculate_amount(input: io::Lines<io::StdinLock>) -> (i32, i32) {
     let mut ribbon = 0;
 
     for line in input {
-        let mut dimensions = line.unwrap().split("x").map(|arg| arg.parse::<i32>().unwrap()).collect::<Vec<i32>>();
+        let mut dimensions =
+            line.unwrap().split("x").map(|arg| arg.parse::<i32>().unwrap()).collect::<Vec<i32>>();
 
         let l = dimensions[0];
         let w = dimensions[1];
