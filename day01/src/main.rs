@@ -9,12 +9,10 @@ fn calculate_floor(input: String) -> (i32, i32) {
             basement_position = index;
         }
 
-        floor += if character == '(' {
-            1
-        } else if character == ')' {
-            -1
-        } else {
-            0
+        floor += match character {
+            '(' => 1,
+            ')' => -1,
+            _ => 0,
         };
     }
 
