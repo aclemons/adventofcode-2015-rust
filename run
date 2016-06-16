@@ -1,0 +1,53 @@
+#!/bin/sh
+
+set -e
+
+# shellcheck disable=SC2034
+print_divider() { for divider in $(seq 1 "$1") ; do printf "%s" "$2" ; done ; printf "\n" ; }
+
+if [ "$#" -eq 0 ] ; then
+  SEQSTART=1
+  SEQEND=4
+elif [ "$#" -eq 1 ] ; then
+  SEQSTART="$1"
+  SEQEND="$1"
+else
+ cat << EOF
+Usage: run [day#]
+
+Runs all the puzzles or optionally the puzzle for the given day
+
+Examples:
+  ./run
+  ./run 4
+EOF
+
+  exit 1
+fi
+
+for i in $(seq "$SEQSTART" "$SEQEND") ; do
+  day="$(printf "day%02d\n" "$i")"
+
+  (
+
+    print_divider 72 "="
+    printf "%s\n" "$day"
+
+    cd "$day"
+    cargo clean
+    cargo build --release --quiet
+    strip --strip-unneeded "target/release/$day"
+
+    "./target/release/$day" < "$(pwd)/input"
+
+    if [ "$i" -eq 3 ] ; then
+      "./target/release/$day" --with-robo-santa < "$(pwd)/input"
+    elif [ "$i" -eq 4 ] ; then
+      "./target/release/$day" --with-six-zeros < "$(pwd)/input"
+    fi
+
+    print_divider 72 "="
+    printf "\n"
+  )
+done
+
