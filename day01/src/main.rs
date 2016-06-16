@@ -4,14 +4,14 @@ fn calculate_floor(input: String) -> (i32, i32) {
     let mut floor = 0;
     let mut basement_position = -1;
 
-    for (i, c) in input.chars().enumerate() {
+    for (index, character) in (0..).zip(input.chars()) {
         if floor == -1 && basement_position == -1 {
-            basement_position = i as i32;
+            basement_position = index;
         }
 
-        floor += if c == '(' {
+        floor += if character == '(' {
             1
-        } else if c == ')' {
+        } else if character == ')' {
             -1
         } else {
             0
