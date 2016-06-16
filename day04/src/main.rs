@@ -52,5 +52,7 @@ fn main() {
 
     let lowest_number = mine_advent_coin(input.trim().to_string(), required_zeros);
 
-    println!("The lowest number is {}", lowest_number);
+    println!("The lowest number with {} zeros is {}",
+             required_zeros,
+             lowest_number);
 }
