@@ -1,12 +1,12 @@
 use std::io;
 
-fn calculate_floor(input: String) -> (i32, i32) {
+fn calculate_floor(input: String) -> (i32, u32) {
     let mut floor = 0;
-    let mut basement_position = -1;
+    let mut basement_position: Option<u32> = None;
 
     for (index, character) in (0..).zip(input.chars()) {
-        if floor == -1 && basement_position == -1 {
-            basement_position = index;
+        if floor == -1 && basement_position.is_none() {
+            basement_position = Some(index);
         }
 
         floor += match character {
@@ -16,7 +16,7 @@ fn calculate_floor(input: String) -> (i32, i32) {
         };
     }
 
-    (floor, basement_position)
+    (floor, basement_position.unwrap())
 }
 
 fn main() {
