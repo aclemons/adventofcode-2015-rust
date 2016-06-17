@@ -6,25 +6,12 @@ extern crate pcre;
 use pcre::Pcre;
 
 fn nice(line: String) -> bool {
-    let vowels_vector = vec!['a', 'e', 'i', 'o', 'u'];
-
-    let vowel_count = line.chars().fold(0, |total, character| {
-        total +
-        if vowels_vector.contains(&character) {
-            1
-        } else {
-            0
-        }
-    });
-
-    if vowel_count < 3 {
-        return false;
-    }
-
+    let mut vowel_re = Pcre::compile("[aeiou].*[aeiou].*[aeiou]").unwrap();
     let mut repeat_re = Pcre::compile("(.)\\1{1,}").unwrap();
     let mut illegal_seq_re = Pcre::compile("ab|cd|pq|xy").unwrap();
 
-    repeat_re.exec(&line).is_some() && !illegal_seq_re.exec(&line).is_some()
+    vowel_re.exec(&line).is_some() && repeat_re.exec(&line).is_some() &&
+    illegal_seq_re.exec(&line).is_none()
 }
 
 fn nice_v2(line: String) -> bool {
@@ -64,5 +51,11 @@ fn main() {
 
     let nice_string_count = count_nice_strings(stdin.lock().lines(), use_new_rules);
 
-    println!("Number of nice strings{} {}", if use_new_rules {" using new rules"} else {""}, nice_string_count);
+    println!("Number of nice strings{} {}",
+             if use_new_rules {
+                 " using new rules"
+             } else {
+                 ""
+             },
+             nice_string_count);
 }
