@@ -5,4 +5,4 @@ authors = ["Andrew Clemons <aclemons@runbox.no>"]
 
 [dependencies]
 rust-crypto = "^0.2"
-regex = "0.1"
+pcre = "0.2.2"

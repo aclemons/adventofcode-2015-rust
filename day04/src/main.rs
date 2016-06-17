@@ -2,19 +2,19 @@ use std::io;
 use std::env;
 
 extern crate crypto;
-extern crate regex;
-
 use crypto::md5::Md5;
 use crypto::digest::Digest;
 
-use regex::Regex;
+extern crate pcre;
+use pcre::Pcre;
 
 fn mine_advent_coin(input: String, zero_count: i32) -> i32 {
     let mut i = 1;
 
     let prefix = std::iter::repeat("0").take(zero_count as usize).collect::<String>();
     let pattern = format!("^{}", prefix);
-    let re = Regex::new(&pattern).unwrap();
+    let mut re = Pcre::compile(&pattern).unwrap();
+
     let mut md5 = Md5::new();
 
     loop {
@@ -26,7 +26,7 @@ fn mine_advent_coin(input: String, zero_count: i32) -> i32 {
 
         md5.reset();
 
-        if re.is_match(&md5sum) {
+        if re.exec(&md5sum).is_some() {
             break;
         }
 
