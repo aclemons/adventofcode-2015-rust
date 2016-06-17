@@ -7,7 +7,7 @@ print_divider() { for divider in $(seq 1 "$1") ; do printf "%s" "$2" ; done ; pr
 
 if [ "$#" -eq 0 ] ; then
   SEQSTART=1
-  SEQEND=4
+  SEQEND=5
 elif [ "$#" -eq 1 ] ; then
   SEQSTART="$1"
   SEQEND="$1"
@@ -44,6 +44,8 @@ for i in $(seq "$SEQSTART" "$SEQEND") ; do
       "./target/release/$day" --with-robo-santa < "$(pwd)/input"
     elif [ "$i" -eq 4 ] ; then
       "./target/release/$day" --with-six-zeros < "$(pwd)/input"
+    elif [ "$i" -eq 5 ] ; then
+      "./target/release/$day" --with-new-rules < "$(pwd)/input"
     fi
 
     print_divider 72 "="
