@@ -38,14 +38,14 @@ for i in $(seq "$SEQSTART" "$SEQEND") ; do
     cargo build --release --quiet
     strip --strip-unneeded "target/release/$day"
 
-    "./target/release/$day" < "$(pwd)/input"
+    "./target/release/$day" < input
 
     if [ "$i" -eq 3 ] ; then
-      "./target/release/$day" --with-robo-santa < "$(pwd)/input"
+      "./target/release/$day" --with-robo-santa < input
     elif [ "$i" -eq 4 ] ; then
-      "./target/release/$day" --with-six-zeros < "$(pwd)/input"
+      "./target/release/$day" --with-six-zeros < input
     elif [ "$i" -eq 5 ] ; then
-      "./target/release/$day" --with-new-rules < "$(pwd)/input"
+      "./target/release/$day" --with-new-rules < input
     fi
 
     print_divider 72 "="
